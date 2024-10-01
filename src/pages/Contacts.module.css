@@ -11,7 +11,7 @@ h2 {
   font-family: Caveat, sans-serif; /* Шрифт тексту */
 }
 section {
-  background-image: url(../../img/img3.jpg);
+  background-image: url(../../public/img/3.jpg);
   background-repeat: no-repeat;
   padding: 150px;
   display: grid;

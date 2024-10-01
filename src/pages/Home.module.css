@@ -1,11 +1,18 @@
 .home_div {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
-  padding: 100px;
+  flex-direction: column;
+  width: 350px;
 }
 .h1_home {
-  font-size: 19px;
+  font-size: 40px;
+  margin-top: 100px;
+  margin-left: 60px;
+  margin-bottom: 0px;
+}
+.p_home {
+  margin-top: 0px;
+  margin-left: 60px;
 }
 .link {
   display: inline-block;
@@ -17,12 +24,31 @@
 
   font-weight: 700;
   color: #ffffff;
+  margin-top: 0px;
+  margin-left: 60px;
 }
 
 .link:hover {
   background-color: #4340ff;
 }
-img {
+.img_box {
+  width: 800px;
+  height: 600px;
+  margin-right: 40px;
   display: flex;
   justify-content: flex-end;
+ 
+}
+.img{
+  width: 500px;
+  height: 300px;
+  box-shadow:22px -22px 0px  2px rgba(0, 0, 0, 0.2); /* Додає тінь */
+  border-radius: 5px; /* Опціонально, щоб зробити краї зображення заокругленими */
+}
+.quotation {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  height: 200px;
+  background-color: slategray;
 }
