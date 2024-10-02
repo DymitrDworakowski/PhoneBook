@@ -1,6 +1,8 @@
 import css from "./Home.module.css";
 import { NavLink } from "react-router-dom";
 import bookImage from "../img/2.jpg";
+import aj from "../img/AJ.jpeg";
+import Footer from "../components/Footer/Footer";
 export default function Home() {
   return (
     <div className={css.container}>
@@ -13,15 +15,22 @@ export default function Home() {
           </NavLink>
         </div>
         <div className={css.img_box}>
-          <img src={bookImage} alt="book" className={css.img} />
+          <img
+            src={bookImage}
+            alt="book"
+            className={css.img_main}
+          />
         </div>
       </div>
-      <div className={css.quotation}>
+      <div className={css.quotation_box}>
         <h3>
           "ContactConnect made finding contacts effortless. Our connections grew
-          by 50% and that's fantastic"
+          by 50% and that's fantastic!"
         </h3>
+        <div className={css.quotation}><img className={css.img_men} src={aj} alt="aj" />
+        <p>Alice Johnson, Sales Manager</p></div>
       </div>
+      <Footer />
     </div>
   );
 }

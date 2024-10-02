@@ -5,7 +5,7 @@
 }
 
 .content {
-  margin-top: 100px;
+  margin-top: 50px;
   display: flex;
   justify-content: space-between; /* Вирівнює текст і зображення по різних сторонах */
   width: 80%; /* Ви можете змінити ширину контейнера на свій розсуд */
@@ -21,7 +21,7 @@
 
 .h1_home {
   font-size: 40px;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 0px; /* Виправляємо відступи */
   margin-bottom: 10px;
 }
@@ -54,15 +54,16 @@
   width: 50%; /* Ширина блоку для зображення */
 }
 
-.img {
+.img_main {
   width: 100%;
   height: auto;
   box-shadow: 22px -22px 2px 5px rgba(0, 0, 0, 0.2); /* Тінь */
   border-radius: 5px;
 }
 
-.quotation {
-  margin-top: 30px;
+
+.quotation_box {
+  margin-top: 80px;
   display: flex;
   justify-content: center;
   height: 200px;
@@ -70,4 +71,13 @@
   width: 100%; /* Робимо ширину блоку цитати 100% */
   align-items: center;
   text-align: center;
+  flex-direction:column;}
+
+.quotation{
+  display: flex;
+  gap: 5px;
+}
+.img_men {
+  width: 60px;
+  border-radius: 50%; /* Округлює зображення до форми кола */
 }

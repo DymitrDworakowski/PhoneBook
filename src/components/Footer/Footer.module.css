@@ -1,0 +1,15 @@
+.footer_container {
+  display: flex;
+  align-items: baseline;
+  gap:600px;
+}
+.footer_connect {
+  margin-right: 50px;
+  font-size: 14px;
+}
+.icons {
+  display: flex;
+  gap: 20px;
+  list-style: none; /* Видаляє маркери */
+  padding: 0; /* Опціонально: видаляє відступ зліва */
+}
