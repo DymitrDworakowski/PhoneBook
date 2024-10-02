@@ -1,10 +1,59 @@
+.form_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 600px;
+  
+  justify-content: center;
+ 
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  height: 80%;
+  
+  border-radius: 10px; /* Округлення форми */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Додає тінь */
+  background-color: #f9f9f9;
+}
+
 .form {
-    width: 320px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+width: 100%;
   
-  .label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-  }
   
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.input {
+
+  padding: 8px;
+  border-radius: 10px; /* Округлення полів */
+  border: 1px solid #ccc;
+  
+}
+
+.login_button {
+  width: 100%; /* Ширина кнопки така ж, як у полів вводу */
+  padding: 8px 0;
+  border-radius: 10px; /* Округлення кнопки */
+  background-color: black;
+  border: 1px solid;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.login_button:hover {
+  background-color: #4340ff;
+}
