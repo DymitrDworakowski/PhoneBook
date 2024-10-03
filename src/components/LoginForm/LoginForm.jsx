@@ -25,18 +25,30 @@ export const LoginForm = () => {
         className={css.user_icon}
       /> */}
       <div className={css.container}>
-      <h1>Login</h1>
-      <form className={css.form} onSubmit={handleSubmit} autoComplete="off">
-        <label className={css.label}>
-          Email
-          <input type="email" name="email" className={css.input} placeholder="Enter your email" />
-        </label>
-        <label className={css.label}>
-          Password
-          <input type="password" name="password" className={css.input} placeholder="Enter your password"/>
-        </label>
-        <button type="submit" className={css.login_button}>Login</button>
-      </form>
+        <h1>Login</h1>
+        <form className={css.form} onSubmit={handleSubmit} autoComplete="off">
+          <label className={css.label}>
+            Email
+            <input
+              type="email"
+              name="email"
+              className={css.input}
+              placeholder="Enter your email"
+            />
+          </label>
+          <label className={css.label}>
+            Password
+            <input
+              type="password"
+              name="password"
+              className={css.input}
+              placeholder="Enter your password"
+            />
+          </label>
+          <button type="submit" className={css.login_button}>
+            Login
+          </button>
+        </form>
       </div>
     </div>
   );

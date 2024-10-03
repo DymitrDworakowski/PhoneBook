@@ -11,6 +11,8 @@ import { fetchContacts } from "../redux/contacts/operations";
 import { selectIsLoading } from "../redux/selectors";
 import Loader from "../components/Loader/Loader";
 
+import Footer from "../components/Footer/Footer";
+
 export default function Tasks() {
   const [open, setOpen] = useState(false);
   const [openAdd, setOpenAdd] = useState(false);
@@ -57,6 +59,7 @@ export default function Tasks() {
         <div className={css.div_calendar}>
           <SimpleReactCalendar />
         </div>
+        <Footer/>
       </section>
     </>
   );
