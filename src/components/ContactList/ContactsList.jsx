@@ -5,8 +5,8 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Modal from "@mui/material/Modal";
 
+import { NavLink } from "react-router-dom";
 import Filter from "../Filter/Filter";
 
 import { selectIsLoading } from "../../redux/selectors";
@@ -22,11 +22,11 @@ import { selectFilterContacts } from "../../redux/selectors";
 import { fetchContacts } from "../../redux/contacts/operations";
 import ContactModal from "../ContactModal/ContactModal";
 
-const ContactsList = ({ open, handleCloseM }) => {
+const ContactsList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectFilterContacts);
-  const [openId, setOpenId] = useState(null);
-  const [editingContactId, setEditingContactId] = useState(""); // Додано стан для зберігання id редагованого контакту
+  // const [openId, setOpenId] = useState(null);
+  // const [editingContactId, setEditingContactId] = useState(""); // Додано стан для зберігання id редагованого контакту
   const [sortBy, setSortBy] = useState("");
   const isLoading = useSelector(selectIsLoading);
 
@@ -40,20 +40,20 @@ const ContactsList = ({ open, handleCloseM }) => {
     [dispatch]
   );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.elements.name.value;
-    const phone = form.elements.phone.value;
-    const email = form.elements.email.value;
-    const id = editingContactId;
-    dispatch(editContact({ name, phone, email, id }));
-    form.reset();
-    handleClose();
-    setTimeout(() => {
-      dispatch(fetchContacts());
-    }, 100);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const name = form.elements.name.value;
+  //   const phone = form.elements.phone.value;
+  //   const email = form.elements.email.value;
+  //   const id = editingContactId;
+  //   dispatch(editContact({ name, phone, email, id }));
+  //   form.reset();
+  //   handleClose();
+  //   setTimeout(() => {
+  //     dispatch(fetchContacts());
+  //   }, 100);
+  // };
 
   const handleChangeFavorite = (id, favorite) => {
     dispatch(statusFavorite({ favorite, id }));
@@ -62,12 +62,10 @@ const ContactsList = ({ open, handleCloseM }) => {
     }, 100);
   };
 
-  const handleOpen = (id) => {
-    setOpenId(id);
-    setEditingContactId(id);
-  };
-
-  const handleClose = () => setOpenId(null);
+  // const handleOpen = (id) => {
+  //   setOpenId(id);
+  //   setEditingContactId(id);
+  // };
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -92,14 +90,35 @@ const ContactsList = ({ open, handleCloseM }) => {
   }, [dispatch, handleDelete]);
 
   return (
-    <Modal
-      open={open}
-      onClose={handleCloseM}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-      className={css.modalOverlayList}
-    >
-      <div className={css.div_list}>
+    <div className={css.div_list}>
+      {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
+        <ul className={css.list} key={`${_id}-${index}`}>
+          <li>Name: {name}</li>
+          <li>Phone: {phone}</li>
+          <li>E-mail: {email}</li>
+          <span
+            className={`${css.favorites} ${
+              favorite ? css.isTrue : css.isFalse
+            }`}
+          ></span>
+          <input
+            className={css.checked}
+            type="checkbox"
+            checked={favorite}
+            onChange={(e) => handleChangeFavorite(_id, e.target.checked)}
+          />
+          <NavLink className={css.link} to={`/contacts/${_id}`}>
+            Details
+          </NavLink>
+          <button variant="contained" type="edit">
+            Edit
+          </button>
+          <button onClick={() => handleDelete(_id)}>
+            <span>Delete</span>
+          </button>
+        </ul>
+      ))}
+      <div>
         <Filter />
         <Select
           labelId="demo-simple-select-label"
@@ -112,51 +131,8 @@ const ContactsList = ({ open, handleCloseM }) => {
           <MenuItem value="byBA">Sort name B-A</MenuItem>
           <MenuItem value="byFavorite">Sort favorite</MenuItem>
         </Select>
-        {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
-          <ul className={css.list} key={`${_id}-${index}`}>
-            <li>Name: {name}</li>
-            <li>Phone: {phone}</li>
-            <li>E-mail: {email}</li>
-            <span
-              className={`${css.favorites} ${
-                favorite ? css.isTrue : css.isFalse
-              }`}
-            ></span>
-            <input
-              className={css.checked}
-              type="checkbox"
-              checked={favorite}
-              onChange={(e) => handleChangeFavorite(_id, e.target.checked)}
-            />
-            <Button
-              variant="contained"
-              type="edit"
-              onClick={() => handleOpen(_id)}
-            >
-              Edit
-            </Button>
-            <LoadingButton
-              size="small"
-              onClick={() => handleDelete(_id)}
-              loadingPosition="end"
-              variant="outlined"
-              loading={isLoading}
-              endIcon={<DeleteIcon />}
-            >
-              <span>Delete</span>
-            </LoadingButton>
-            <ContactModal
-              open={openId === _id}
-              handleClose={handleClose}
-              handleSubmit={handleSubmit}
-              name={name}
-              email={email}
-              phone={phone}
-            />
-          </ul>
-        ))}
       </div>
-    </Modal>
+    </div>
   );
 };
 
