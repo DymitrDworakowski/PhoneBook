@@ -11,9 +11,9 @@ const Footer = () => {
         <p>Effortless search for contact information.</p>
         <p>Connect with us:</p>
         <ul className={css.icons}>
-          <li><PhoneIcon/></li>
-          <li><MailIcon/></li>
-          <li><LinkedinIcon/></li>
+          <li><a href="tel:+48577177636"><PhoneIcon/></a></li>
+          <li><a href="mailto:d.dvorakivskyi@gmail.com"><MailIcon/></a></li>
+          <li><a href="https://www.linkedin.com/in/dymitr-dworakowski/"><LinkedinIcon/></a></li>
         </ul>
       </div>
       <div>
