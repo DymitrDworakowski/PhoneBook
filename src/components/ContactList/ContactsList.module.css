@@ -1,3 +1,30 @@
+.div_list{
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.div_search{
+  display: flex;
+  flex-direction: column;
+  background-color: slategray;
+}
+
+.div_list_contact{
+  display: flex;
+  flex-direction: column;
+}
+
+.list{
+  display: flex;
+  align-items: center;
+  list-style: none; /* Видаляє маркери */
+  gap: 20px;
+}
+
+
+
+
+
 
 .favorites {
   width: 15px;

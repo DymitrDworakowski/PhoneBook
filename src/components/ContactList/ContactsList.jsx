@@ -1,14 +1,15 @@
 import css from "./ContactsList.module.css";
 
-import Button from "@mui/material/Button";
-import LoadingButton from "@mui/lab/LoadingButton";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Modal from "@mui/material/Modal";
+// import Button from "@mui/material/Button";
+// import LoadingButton from "@mui/lab/LoadingButton";
+// import Select from "@mui/material/Select";
+// import MenuItem from "@mui/material/MenuItem";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import Modal from "@mui/material/Modal";
 
 import { NavLink } from "react-router-dom";
 import Filter from "../Filter/Filter";
+import ContactForm from "../ContactForm/ContactForm";
 
 import { selectIsLoading } from "../../redux/selectors";
 
@@ -30,6 +31,7 @@ const ContactsList = ({ open, handleCloseM }) => {
   const [editingContactId, setEditingContactId] = useState(""); // Додано стан для зберігання id редагованого контакту
   const [sortBy, setSortBy] = useState("");
   const isLoading = useSelector(selectIsLoading);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleDelete = useCallback(
     (id) => {
@@ -94,11 +96,29 @@ const ContactsList = ({ open, handleCloseM }) => {
 
   return (
     <div className={css.div_list}>
+      <div className={css.div_search}>
+        <button onClick={() => setIsOpen(true)}>Add Contact</button>
+        {isOpen && <ContactForm setIsOpen={setIsOpen} />}
+        <Filter />
+        {/* <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={sortBy}
+          onChange={handleChange}
+        >
+          <MenuItem value="none">...</MenuItem>
+          <MenuItem value="byAB">Sort name by A-B</MenuItem>
+          <MenuItem value="byBA">Sort name B-A</MenuItem>
+          <MenuItem value="byFavorite">Sort favorite</MenuItem>
+        </Select> */}
+      </div>
+      <div className={css.div_list_contact}>
       {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
+        
         <ul className={css.list} key={`${_id}-${index}`}>
-          <li>Name: {name}</li>
-          <li>Phone: {phone}</li>
-          <li>E-mail: {email}</li>
+          <li className={css.name}>Name: {name}</li>
+          <li className={css.phone}>Phone: {phone}</li>
+          <li className={css.email}>E-mail: {email}</li>
           <span
             className={`${css.favorites} ${
               favorite ? css.isTrue : css.isFalse
@@ -130,20 +150,8 @@ const ContactsList = ({ open, handleCloseM }) => {
             <span>Delete</span>
           </button>
         </ul>
+        
       ))}
-      <div>
-        <Filter />
-        {/* <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={sortBy}
-          onChange={handleChange}
-        >
-          <MenuItem value="none">...</MenuItem>
-          <MenuItem value="byAB">Sort name by A-B</MenuItem>
-          <MenuItem value="byBA">Sort name B-A</MenuItem>
-          <MenuItem value="byFavorite">Sort favorite</MenuItem>
-        </Select> */}
       </div>
     </div>
   );
