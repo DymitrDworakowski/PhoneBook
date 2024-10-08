@@ -93,7 +93,6 @@ const ContactsList = ({ open, handleCloseM }) => {
   }, [dispatch, handleDelete]);
 
   return (
-   
     <div className={css.div_list}>
       {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
         <ul className={css.list} key={`${_id}-${index}`}>
@@ -114,7 +113,7 @@ const ContactsList = ({ open, handleCloseM }) => {
           <NavLink className={css.link} to={`/contacts/${_id}`}>
             Details
           </NavLink>
-          <button  type="edit" onClick={() => handleOpen(_id)}>
+          <button type="edit" onClick={() => handleOpen(_id)}>
             Edit
           </button>
           {openId === _id && (
@@ -128,8 +127,6 @@ const ContactsList = ({ open, handleCloseM }) => {
             />
           )}
           <button onClick={() => handleDelete(_id)}>
-          
-          
             <span>Delete</span>
           </button>
         </ul>
@@ -147,10 +144,8 @@ const ContactsList = ({ open, handleCloseM }) => {
           <MenuItem value="byBA">Sort name B-A</MenuItem>
           <MenuItem value="byFavorite">Sort favorite</MenuItem>
         </Select> */}
-
       </div>
     </div>
-   
   );
 };
 
