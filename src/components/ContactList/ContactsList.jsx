@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Modal from "@mui/material/Modal";
+
 import { NavLink } from "react-router-dom";
 import Filter from "../Filter/Filter";
 
@@ -113,18 +114,29 @@ const ContactsList = ({ open, handleCloseM }) => {
           <NavLink className={css.link} to={`/contacts/${_id}`}>
             Details
           </NavLink>
-          <button variant="contained" type="edit" onClick={() => handleOpen(_id)}>
+          <button  type="edit" onClick={() => handleOpen(_id)}>
             Edit
           </button>
+          {openId === _id && (
+            <ContactModal
+              contactId={_id}
+              handleClose={handleClose}
+              handleSubmit={handleSubmit}
+              name={name}
+              phone={phone}
+              email={email}
+            />
+          )}
           <button onClick={() => handleDelete(_id)}>
+          
+          
             <span>Delete</span>
           </button>
         </ul>
-        
       ))}
       <div>
         <Filter />
-        <Select
+        {/* <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={sortBy}
@@ -134,7 +146,7 @@ const ContactsList = ({ open, handleCloseM }) => {
           <MenuItem value="byAB">Sort name by A-B</MenuItem>
           <MenuItem value="byBA">Sort name B-A</MenuItem>
           <MenuItem value="byFavorite">Sort favorite</MenuItem>
-        </Select>
+        </Select> */}
 
       </div>
     </div>

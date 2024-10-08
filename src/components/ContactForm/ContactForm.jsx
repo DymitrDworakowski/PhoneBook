@@ -1,9 +1,9 @@
 import css from "./ContactForm.module.css";
-import Modal from "@mui/material/Modal";
+
 import { useDispatch } from "react-redux";
 import { addContact } from "../../redux/contacts/operations";
 
-const ContactForm = ({ openAdd, handleCloseAdd }) => {
+const ContactForm = ({ setIsOpen, handleCloseAdd }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -14,19 +14,19 @@ const ContactForm = ({ openAdd, handleCloseAdd }) => {
     const email = form.elements.email.value;
 
     dispatch(addContact({ name, phone, email })); // Передаємо об'єкт зі значеннями name та number до екшена
+    setIsOpen(false);
     form.reset();
   };
 
+  const handleModalClick = (e) => {
+    // Закриття модалки тільки якщо клік поза формою
+    e.stopPropagation(); // Запобігає поширенню події кліку всередині форми
+  };
+
   return (
-    <Modal
-      open={openAdd}
-      onClose={handleCloseAdd}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-      className={css.modalOverlayAdd}
-    >
-      <div className={css.div_form}>
-        <form className={css.form} onSubmit={handleSubmit}>
+    <>
+      <div className={css.div_form} onClick={() => setIsOpen(false)}>
+        <form className={css.form} onClick={handleModalClick} onSubmit={handleSubmit}>
           <p>Name</p>
           <input
             className={css.input}
@@ -49,15 +49,14 @@ const ContactForm = ({ openAdd, handleCloseAdd }) => {
             type="tel"
             name="phone"
             required
-            placeholder="phone"
+            placeholder="Phone"
           />
-
           <button type="submit" className={css.form_button}>
             Add contact
           </button>
         </form>
       </div>
-    </Modal>
+    </>
   );
 };
 
