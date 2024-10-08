@@ -1,12 +1,17 @@
 .div_list{
   display: flex;
-  flex-wrap: nowrap;
+  /* flex-wrap: nowrap; */
+  justify-content: center;
+  gap:10px;
 }
 
 .div_search{
   display: flex;
   flex-direction: column;
-  background-color: rgb(201, 202, 202);
+  align-items: center;
+  background-color: rgb(241, 244, 244);
+  border-radius: 20px;
+  height: 600px;
 }
 
 .div_list_contact{
@@ -15,8 +20,10 @@
 }
 
 .list{
-  border: 1px solid black;
-  border-shadow: solid 1px;
+  margin:5px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тінь вікна */
+  border-radius: 10px;
   display: flex;
   align-items: center;
   list-style: none; /* Видаляє маркери */

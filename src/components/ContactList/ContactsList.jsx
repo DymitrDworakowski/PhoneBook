@@ -116,7 +116,7 @@ const ContactsList = ({ open, handleCloseM }) => {
       {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
         
         <ul className={css.list} key={`${_id}-${index}`}>
-          <li className={css.name}>Name: {name}</li>
+          <li className={css.name}>{name}</li>
           <li className={css.phone}>Phone: {phone}</li>
           <li className={css.email}>E-mail: {email}</li>
           <span

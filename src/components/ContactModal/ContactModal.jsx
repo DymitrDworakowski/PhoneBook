@@ -4,9 +4,9 @@ import React from "react";
 import css from "./ContactModal.module.css";
 
 const ContactModal = React.memo(
-  ({ setIsOpen , handleClose, handleSubmit, name, email, phone }) => {
+  ({ setIsOpen, handleClose, handleSubmit, name, email, phone }) => {
     return (
-     <>
+      <>
         <div className={css.modalContent}>
           <form onSubmit={handleSubmit}>
             <p>Name</p>
@@ -33,7 +33,7 @@ const ContactModal = React.memo(
             <button type="submit">Confirm changes</button>
           </form>
         </div>
-        </>
+      </>
     );
   }
 );
