@@ -62,19 +62,17 @@ const ContactsList = () => {
     dispatch(fetchContacts());
   }, [dispatch]); // Завантажує контакти при першому рендері
   
-  // Після закриття модалки, ми оновлюємо список контактів
-  useEffect(() => {
-    if (!isOpen) {
-      dispatch(fetchContacts());
-    }
-  }, [isOpen, dispatch]);
-  
+    // Логіка едитування контакту
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSortBy(value);
+  };
   return (
     <div className={css.div_list}>
       <div className={css.div_search}>
         <button onClick={() => handleOpenModal()}>Add Contact</button>
 
-        <Filter sortBy={sortBy} handleChange={setSortBy} />
+        <Filter sortBy={sortBy} handleChange={handleChange} />
       </div>
 
       <div className={css.div_list_contact}>
