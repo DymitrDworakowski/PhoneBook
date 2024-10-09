@@ -1,10 +1,39 @@
 .list {
-  margin: 5px;
-  padding: 10px;
+  
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тінь вікна */
   border-radius: 10px;
   display: flex;
-  align-items: center;
-  list-style: none; /* Видаляє маркери */
+  align-items: baseline;
   gap: 20px;
+}
+
+.ul_contact{
+  display: flex;
+  flex-direction: column;
+  list-style: none; /* Видаляє маркери */
+  margin: 10px;
+}
+
+.checked{
+  text-decoration: line-through;
+  margin: 0;
+}
+
+
+.favorites {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.favorites.isTrue {
+  background-color: green;
+}
+
+.favorites.isFalse {
+  background-color: red;
+}
+
+.checked{
+padding: auto;
 }

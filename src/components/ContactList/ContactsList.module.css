@@ -17,20 +17,7 @@
 .div_list_contact{
   display: flex;
   flex-direction: column;
+  width: auto;
 }
 
 
-.favorites {
-  width: 15px;
-  height: 15px;
-  margin-right: 15px;
-  border-radius: 50%;
-}
-
-.favorites.isTrue {
-  background-color: green;
-}
-
-.favorites.isFalse {
-  background-color: red;
-}

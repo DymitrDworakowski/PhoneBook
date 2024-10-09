@@ -50,7 +50,13 @@ const ContactsList = () => {
       return contacts; // Повернення незміненого масиву контактів, якщо сортування не вибрано
     }
   };
+
   const sortedContacts = sortContacts(contacts);
+  // Логіка сортування контакту
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSortBy(value);
+  };
 
   // Логіка видалення контакту
   const handleDelete = async (id) => {
@@ -61,20 +67,13 @@ const ContactsList = () => {
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]); // Завантажує контакти при першому рендері
-  
-    // Логіка едитування контакту
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setSortBy(value);
-  };
+
   return (
     <div className={css.div_list}>
       <div className={css.div_search}>
         <button onClick={() => handleOpenModal()}>Add Contact</button>
-
         <Filter sortBy={sortBy} handleChange={handleChange} />
       </div>
-
       <div className={css.div_list_contact}>
         {sortedContacts.map((contacts) => (
           <ContactItem

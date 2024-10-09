@@ -1,17 +1,15 @@
 import css from "./Filter.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { findContact } from "../../redux/contacts/filterSlice";
-// import { selectFilterContacts } from "../../redux/selectors";
-// import { useState } from "react";
 
 const Filter = ({ handleChange, sortBy }) => {
   const dispatch = useDispatch();
 
-  const handleFilter = (e) => {
+  const handleFilter = async(e) => {
     e.preventDefault();
     const value = e.target.value; // Отримуємо значення поля введення безпосередньо з події
 
-    dispatch(findContact(value));
+   await dispatch(findContact(value));
   };
 
   return (
@@ -23,15 +21,16 @@ const Filter = ({ handleChange, sortBy }) => {
         placeholder="Search by name"
         onChange={handleFilter}
       />
+<p>Sort by:</p>
       <select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         value={sortBy}
         onChange={handleChange}
       >
-        <option value="none">...</option>
+        <option value="none">None</option>
         <option value="byAB">Sort name by A-B</option>
-        <option value="byBA">Sort name B-A</option>
+        <option value="byBA">Sort name by B-A</option>
         <option value="byFavorite">Sort favorite</option>
       </select>
     </div>

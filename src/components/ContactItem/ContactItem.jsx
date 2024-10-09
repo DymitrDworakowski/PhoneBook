@@ -14,19 +14,23 @@ const ContactItem = React.memo(
     _id,
   }) => {
     return (
-      <ul className={css.list}>
-        <li className={css.name}>{name}</li>
-        <li className={css.phone}>Phone: {phone}</li>
-        <li className={css.email}>E-mail: {email}</li>
+      <div className={css.list}>
+        <ul className={css.ul_contact}>
+          <li className={css.name}>{name}</li>
+          <li className={css.phone}>Phone: {phone}</li>
+          <li className={css.email}>E-mail: {email}</li>
+        </ul>
         <span
           className={`${css.favorites} ${favorite ? css.isTrue : css.isFalse}`}
         ></span>
+        <div className={css.checkbox}>
         <input
           className={css.checked}
           type="checkbox"
           checked={favorite}
           onChange={(e) => onChangeFavorite(e.target.checked)}
         />
+        </div>
         <NavLink className={css.link} to={`/contacts/${_id}`}>
           Details
         </NavLink>
@@ -36,7 +40,7 @@ const ContactItem = React.memo(
         <button onClick={onDelete}>
           <span>Delete</span>
         </button>
-      </ul>
+      </div>
     );
   }
 );
