@@ -29,7 +29,7 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.items = action.payload;
+        state.items = action.payload; // Перезаписуємо старий масив контактів
       })
       .addCase(fetchContacts.rejected, handleRejected)
       .addCase(addContact.pending, handlePending)
@@ -43,40 +43,32 @@ const contactsSlice = createSlice({
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        const index = state.items.findIndex(
-          (contact) => contact.id === action.payload.id
-        );
-        state.items.splice(index, 1);
-      })
+        state.items = state.items.filter(contact => contact.id !== action.payload.id);
+    })
       .addCase(deleteContact.rejected, handleRejected)
       .addCase(editContact.pending, handlePending)
       .addCase(editContact.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        const updatedContact = action.payload; // Оновлений контакт, який повернув сервер
-        const index = state.items.findIndex(
-          (contact) => contact.id === updatedContact.id
+        state.items = state.items.map(contact =>
+          contact.id === action.payload._id ? action.payload : contact
         );
-        if (index !== -1) {
-          // Якщо контакт існує у списку, замініть його оновленим контактом
-          state.items.splice(index, 1, updatedContact);
-        }
-      })
+    })
       .addCase(editContact.rejected, handleRejected)
       .addCase(statusFavorite.pending, handlePending)
       .addCase(statusFavorite.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        const statusContact = action.payload;
-        console.log(statusContact); // Оновлений контакт, який повернув сервер
+        const statusContact = action.payload; // Оновлений контакт
+        // console.log('Updated favorite status:', statusContact); 
         const index = state.items.findIndex(
-          (contact) => contact.id === statusContact.id
+          (contact) => contact._id === statusContact._id // Переконайся, що використовуєш правильне поле
         );
         if (index !== -1) {
           // Якщо контакт існує у списку, замініть його оновленим контактом
-          state.items.splice(index, 1, statusContact);
+          state.items[index] = statusContact; // Використовуй присвоєння, щоб оновити статус
         }
-      })
+    })
       .addCase(statusFavorite.rejected, handleRejected);
   },
 });

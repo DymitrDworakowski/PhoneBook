@@ -1,19 +1,19 @@
-import css from "./ContactForm.module.css";
+import css from "./ContactAddForm.module.css";
 
 import { useDispatch } from "react-redux";
 import { addContact } from "../../redux/contacts/operations";
 
-const ContactForm = ({ setIsOpen, handleCloseAdd }) => {
+const ContactAddForm = ({ setIsOpen }) => {
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.elements.name.value;
     const phone = form.elements.phone.value; // Отримуємо значення number з форми
     const email = form.elements.email.value;
 
-    dispatch(addContact({ name, phone, email })); // Передаємо об'єкт зі значеннями name та number до екшена
+    await dispatch(addContact({ name, phone, email })); // Передаємо об'єкт зі значеннями name та number до екшена
     setIsOpen(false);
     form.reset();
   };
@@ -60,4 +60,4 @@ const ContactForm = ({ setIsOpen, handleCloseAdd }) => {
   );
 };
 
-export default ContactForm;
+export default ContactAddForm;

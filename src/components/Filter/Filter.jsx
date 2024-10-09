@@ -1,8 +1,10 @@
 import css from "./Filter.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { findContact } from "../../redux/contacts/filterSlice";
+// import { selectFilterContacts } from "../../redux/selectors";
+// import { useState } from "react";
 
-const Filter = () => {
+const Filter = ({ handleChange, sortBy }) => {
   const dispatch = useDispatch();
 
   const handleFilter = (e) => {
@@ -14,13 +16,24 @@ const Filter = () => {
 
   return (
     <div className={css.div_filter}>
-      <p className={css.p_filter}>Find contact by name</p>
+      <p className={css.p_filter}>Filters</p>
       <input
         type="text"
         name="search"
-        placeholder="Find contact"
+        placeholder="Search by name"
         onChange={handleFilter}
       />
+      <select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={sortBy}
+        onChange={handleChange}
+      >
+        <option value="none">...</option>
+        <option value="byAB">Sort name by A-B</option>
+        <option value="byBA">Sort name B-A</option>
+        <option value="byFavorite">Sort favorite</option>
+      </select>
     </div>
   );
 };

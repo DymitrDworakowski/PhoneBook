@@ -1,82 +1,44 @@
 import css from "./ContactsList.module.css";
 
-// import Button from "@mui/material/Button";
-// import LoadingButton from "@mui/lab/LoadingButton";
-// import Select from "@mui/material/Select";
-// import MenuItem from "@mui/material/MenuItem";
-// import DeleteIcon from "@mui/icons-material/Delete";
-// import Modal from "@mui/material/Modal";
-
-import { NavLink } from "react-router-dom";
 import Filter from "../Filter/Filter";
-import ContactForm from "../ContactForm/ContactForm";
-
+import ContactItem from "../ContactItem/ContactItem";
 import { selectIsLoading } from "../../redux/selectors";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteContact,
-  editContact,
-  statusFavorite,
-} from "../../redux/contacts/operations";
+import { deleteContact, statusFavorite } from "../../redux/contacts/operations";
 import { selectFilterContacts } from "../../redux/selectors";
 import { fetchContacts } from "../../redux/contacts/operations";
 import ContactModal from "../ContactModal/ContactModal";
 
-const ContactsList = ({ open, handleCloseM }) => {
+const ContactsList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectFilterContacts);
-  const [openId, setOpenId] = useState(null);
-  const [editingContactId, setEditingContactId] = useState(""); // Додано стан для зберігання id редагованого контакту
   const [sortBy, setSortBy] = useState("");
+  const [editingContact, setEditingContact] = useState(null); // Тепер це об'єкт з контактами для редагування
+  const contacts = useSelector(selectFilterContacts);
   const isLoading = useSelector(selectIsLoading);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleDelete = useCallback(
-    (id) => {
-      dispatch(deleteContact(id));
-      setTimeout(() => {
-        dispatch(fetchContacts());
-      }, 100);
-    },
-    [dispatch]
-  );
+  // Логіка для зміни статусу улюбленого контакту
+  const handleChangeFavorite = async (id, favorite) => {
+    await dispatch(statusFavorite({ favorite, id }));
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.elements.name.value;
-    const phone = form.elements.phone.value;
-    const email = form.elements.email.value;
-    const id = editingContactId;
-    dispatch(editContact({ name, phone, email, id }));
-    form.reset();
-    handleClose();
-    setTimeout(() => {
-      dispatch(fetchContacts());
-    }, 100);
+    // Оновлюємо контакти після зміни статусу
+    await dispatch(fetchContacts());
   };
 
-  const handleChangeFavorite = (id, favorite) => {
-    dispatch(statusFavorite({ favorite, id }));
-    setTimeout(() => {
-      dispatch(fetchContacts());
-    }, 100);
+  // Логіка відкриття модалки
+  const handleOpenModal = (contact = null) => {
+    setEditingContact(contact); // Якщо contact передано, значить редагуємо, інакше - додаємо
+    setIsOpen(true);
   };
 
-  const handleOpen = (id) => {
-    setOpenId(id);
-    setEditingContactId(id);
+  // Логіка закриття модалки
+  const handleCloseModal = () => {
+    setEditingContact(null);
+    setIsOpen(false);
   };
-
-  const handleClose = () => setOpenId(null);
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setSortBy(value);
-  };
-
+  // Логіка сортування контактів
   const sortContacts = (contacts) => {
     if (sortBy === "byAB") {
       return [...contacts].sort((a, b) => a.name.localeCompare(b.name)); // Сортування A-B
@@ -90,69 +52,47 @@ const ContactsList = ({ open, handleCloseM }) => {
   };
   const sortedContacts = sortContacts(contacts);
 
+  // Логіка видалення контакту
+  const handleDelete = async (id) => {
+    await dispatch(deleteContact(id));
+    dispatch(fetchContacts()); // автоматичне оновлення без таймауту
+  };
+
   useEffect(() => {
     dispatch(fetchContacts());
-  }, [dispatch, handleDelete]);
-
+  }, [dispatch]); // Завантажує контакти при першому рендері
+  
+  // Після закриття модалки, ми оновлюємо список контактів
+  useEffect(() => {
+    if (!isOpen) {
+      dispatch(fetchContacts());
+    }
+  }, [isOpen, dispatch]);
+  
   return (
     <div className={css.div_list}>
       <div className={css.div_search}>
-        <button onClick={() => setIsOpen(true)}>Add Contact</button>
-        {isOpen && <ContactForm setIsOpen={setIsOpen} />}
-        <Filter />
-        {/* <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={sortBy}
-          onChange={handleChange}
-        >
-          <MenuItem value="none">...</MenuItem>
-          <MenuItem value="byAB">Sort name by A-B</MenuItem>
-          <MenuItem value="byBA">Sort name B-A</MenuItem>
-          <MenuItem value="byFavorite">Sort favorite</MenuItem>
-        </Select> */}
+        <button onClick={() => handleOpenModal()}>Add Contact</button>
+
+        <Filter sortBy={sortBy} handleChange={setSortBy} />
       </div>
+
       <div className={css.div_list_contact}>
-      {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
-        
-        <ul className={css.list} key={`${_id}-${index}`}>
-          <li className={css.name}>{name}</li>
-          <li className={css.phone}>Phone: {phone}</li>
-          <li className={css.email}>E-mail: {email}</li>
-          <span
-            className={`${css.favorites} ${
-              favorite ? css.isTrue : css.isFalse
-            }`}
-          ></span>
-          <input
-            className={css.checked}
-            type="checkbox"
-            checked={favorite}
-            onChange={(e) => handleChangeFavorite(_id, e.target.checked)}
+        {sortedContacts.map((contacts) => (
+          <ContactItem
+            key={contacts._id}
+            {...contacts} // Передаємо всі пропси контакту напряму
+            onEdit={() => handleOpenModal(contacts)} // Відкриваємо модалку для редагування
+            onDelete={() => handleDelete(contacts._id)}
+            onChangeFavorite={(checked) =>
+              handleChangeFavorite(contacts._id, checked)
+            }
           />
-          <NavLink className={css.link} to={`/contacts/${_id}`}>
-            Details
-          </NavLink>
-          <button type="edit" onClick={() => handleOpen(_id)}>
-            Edit
-          </button>
-          {openId === _id && (
-            <ContactModal
-              contactId={_id}
-              handleClose={handleClose}
-              handleSubmit={handleSubmit}
-              name={name}
-              phone={phone}
-              email={email}
-            />
-          )}
-          <button onClick={() => handleDelete(_id)}>
-            <span>Delete</span>
-          </button>
-        </ul>
-        
-      ))}
+        ))}
       </div>
+      {isOpen && (
+        <ContactModal contact={editingContact} handleClose={handleCloseModal} />
+      )}
     </div>
   );
 };
