@@ -59,14 +59,12 @@ const contactsSlice = createSlice({
       .addCase(statusFavorite.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        const statusContact = action.payload; // Оновлений контакт
-        // console.log('Updated favorite status:', statusContact); 
+        const statusContact = action.payload; 
         const index = state.items.findIndex(
-          (contact) => contact._id === statusContact._id // Переконайся, що використовуєш правильне поле
+          (contact) => contact._id === statusContact._id 
         );
         if (index !== -1) {
-          // Якщо контакт існує у списку, замініть його оновленим контактом
-          state.items[index] = statusContact; // Використовуй присвоєння, щоб оновити статус
+          state.items[index] = statusContact; /
         }
     })
       .addCase(statusFavorite.rejected, handleRejected);
