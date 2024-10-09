@@ -64,7 +64,7 @@ const contactsSlice = createSlice({
           (contact) => contact._id === statusContact._id 
         );
         if (index !== -1) {
-          state.items[index] = statusContact; /
+          state.items[index] = statusContact; 
         }
     })
       .addCase(statusFavorite.rejected, handleRejected);
