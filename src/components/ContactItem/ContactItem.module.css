@@ -4,7 +4,8 @@
   border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 30px;
+  justify-content: space-around;
+  gap: 20px;
 }
 
 .ul_contact{
@@ -67,7 +68,7 @@ padding: auto ;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
-  margin-right: 10px;
+  
 }
 
 .button_delete:hover {

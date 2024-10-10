@@ -5,11 +5,11 @@ import { findContact } from "../../redux/contacts/filterSlice";
 const Filter = ({ handleChange, sortBy }) => {
   const dispatch = useDispatch();
 
-  const handleFilter = async(e) => {
+  const handleFilter = async (e) => {
     e.preventDefault();
     const value = e.target.value; // Отримуємо значення поля введення безпосередньо з події
 
-   await dispatch(findContact(value));
+    await dispatch(findContact(value));
   };
 
   return (
@@ -21,7 +21,7 @@ const Filter = ({ handleChange, sortBy }) => {
         placeholder="Search by name"
         onChange={handleFilter}
       />
-<p>Sort by:</p>
+      <p>Sort by:</p>
       <select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
