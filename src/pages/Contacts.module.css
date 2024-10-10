@@ -1,5 +1,9 @@
-section{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.contact_section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+section {
+  width: 100vw; /* ширина на 100% від вьюпорту */
+  margin: 30px;
 }

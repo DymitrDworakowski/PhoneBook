@@ -71,7 +71,7 @@ const ContactsList = () => {
   return (
     <div className={css.div_list}>
       <div className={css.div_search}>
-        <button onClick={() => handleOpenModal()}>Add Contact</button>
+        <button onClick={() => handleOpenModal()} className={css.button_add}>Add Contact</button>
         <Filter sortBy={sortBy} handleChange={handleChange} />
       </div>
       <div className={css.div_list_contact}>

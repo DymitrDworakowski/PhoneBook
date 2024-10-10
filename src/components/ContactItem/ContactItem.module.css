@@ -21,6 +21,8 @@
 
 
 .favorites {
+  margin: auto;
+  
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -35,5 +37,5 @@
 }
 
 .checked{
-padding: auto;
+padding: auto ;
 }
